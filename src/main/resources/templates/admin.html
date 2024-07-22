@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h2>Admin Panel</h2>
+    <form method="post">
+        <table class="table">
+            <thead>
+            <tr>
+                <th><input type="checkbox" id="selectAll"></th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Last Login Time</th>
+                <th>Registration Time</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td><input type="checkbox" name="userId" th:value="${user.id}"></td>
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.lastLoginTime}"></td>
+                <td th:text="${user.registrationTime}"></td>
+                <td th:text="${user.isActive ? 'Active' : 'Blocked'}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="btn-toolbar">
+            <button type="submit" formaction="/admin/block" class="btn btn-danger">Block</button>
+            <button type="submit" formaction="/admin/unblock" class="btn btn-secondary">Unblock</button>
+            <button type="submit" formaction="/admin/delete" class="btn btn-secondary">Delete</button>
+        </div>
+    </form>
+</div>
+<script>
+    document.getElementById('selectAll').addEventListener('click', function(e) {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = e.target.checked;
+        }
+    });
+</script>
+</body>
+</html>
