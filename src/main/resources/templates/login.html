@@ -17,7 +17,13 @@
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
         <button type="submit" class="btn btn-primary">Login</button>
+        <div th:if="${param.error == 'blocked'}" class="alert alert-danger mt-2">
+            <p>Your account is blocked. Please contact support.</p>
+        </div>
     </form>
+    <div th:if="${param.error == 'true'}" class="alert alert-danger" role="alert">
+        <p>Your account is blocked. Please contact support.</p>
+    </div>
 </div>
 </body>
 </html>

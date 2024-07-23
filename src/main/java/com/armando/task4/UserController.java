@@ -24,9 +24,14 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user) {
-        userService.registerUser(user);
-        return "redirect:/login";
+    public String registerUser(@ModelAttribute User user, Model model) {
+        try {
+            userService.registerUser(user);
+            return "redirect:/login";
+        } catch (DuplicateUserException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "register";
+        }
     }
 
     @GetMapping("/login")

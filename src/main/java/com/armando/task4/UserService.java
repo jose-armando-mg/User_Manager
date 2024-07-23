@@ -1,6 +1,7 @@
 package com.armando.task4;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,16 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User registerUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRegistrationTime(LocalDateTime.now());
-        user.setBlocked(false);
-        user.setActive(true);
-        return userRepository.save(user);
+    public void registerUser(User user) throws DuplicateUserException {
+        try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRegistrationTime(LocalDateTime.now());
+            user.setBlocked(false);
+            user.setActive(true);
+            userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateUserException("User with the same email already exists.");
+        }
     }
 
     public User findByEmail(String email) {
@@ -56,5 +61,9 @@ public class UserService {
         for (Long userId : userIds) {
             userRepository.deleteById(userId);
         }
+    }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 }
