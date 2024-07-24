@@ -3,29 +3,63 @@
 <head>
     <title>Register</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #f7f8f8, #e6e9ec);
+            font-family: Arial, sans-serif;
+        }
+        .register-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .register-card {
+            width: 100%;
+            max-width: 500px; /* Increased width */
+            padding: 30px; /* Increased padding */
+            border-radius: 12px; /* Slightly larger radius */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly larger shadow */
+            background-color: #fff;
+        }
+        .register-card h2 {
+            margin-bottom: 24px; /* Increased margin */
+            font-size: 28px; /* Larger font size */
+        }
+        .register-card .btn {
+            width: 100%;
+            font-size: 16px; /* Slightly larger button text */
+            padding: 12px; /* More padding */
+        }
+        .alert {
+            margin-bottom: 20px; /* Added space below alert */
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h2>Register</h2>
-    <form th:action="@{/register}" method="post">
-        <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
-            <p th:text="${errorMessage}"></p>
-        </div>
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Register</button>
-        <a href="/login" class="btn btn-secondary ml-2">Login</a>
-    </form>
+<div class="register-container">
+    <div class="register-card">
+        <h2 class="text-center">Register</h2>
+        <form th:action="@{/register}" method="post">
+            <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+                <p th:text="${errorMessage}"></p>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <a href="/login" class="btn btn-secondary mt-2">Login</a>
+        </form>
+    </div>
 </div>
 </body>
 </html>

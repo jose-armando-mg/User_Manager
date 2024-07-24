@@ -67,30 +67,42 @@ public class UserController {
     }
 
     @PostMapping("/admin/block")
-    public String blockUsers(@RequestParam List<Long> userId) {
+    public String blockUsers(@RequestParam(value = "userId", required = false) List<Long> userId, Model model) {
         User user = getCurrentUser();
         if (user == null || !user.isActive()) {
             return "redirect:/login?error=inactive";
+        }
+        if (userId == null || userId.isEmpty()) {
+            model.addAttribute("errorMessage", "No users selected to block.");
+            return "redirect:/admin";
         }
         userService.blockUsers(userId);
         return "redirect:/admin";
     }
 
     @PostMapping("/admin/unblock")
-    public String unblockUsers(@RequestParam List<Long> userId) {
+    public String unblockUsers(@RequestParam(value = "userId", required = false) List<Long> userId, Model model) {
         User user = getCurrentUser();
         if (user == null || !user.isActive()) {
             return "redirect:/login?error=inactive";
+        }
+        if (userId == null || userId.isEmpty()) {
+            model.addAttribute("errorMessage", "No users selected to unblock.");
+            return "redirect:/admin";
         }
         userService.unblockUsers(userId);
         return "redirect:/admin";
     }
 
     @PostMapping("/admin/delete")
-    public String deleteUsers(@RequestParam List<Long> userId) {
+    public String deleteUsers(@RequestParam(value = "userId", required = false) List<Long> userId, Model model) {
         User user = getCurrentUser();
         if (user == null || !user.isActive()) {
             return "redirect:/login?error=inactive";
+        }
+        if (userId == null || userId.isEmpty()) {
+            model.addAttribute("errorMessage", "No users selected to delete.");
+            return "redirect:/admin";
         }
         userService.deleteUsers(userId);
         return "redirect:/admin";

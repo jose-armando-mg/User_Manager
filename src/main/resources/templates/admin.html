@@ -3,17 +3,45 @@
 <head>
     <title>Admin Panel</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .navbar-custom {
+            background-color: #343a40;
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link,
+        .navbar-custom .navbar-text {
+            color: #ffffff;
+        }
+        .navbar-custom .nav-link:hover {
+            color: #cccccc;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .btn-toolbar {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-<nav>
-    <!-- Other navbar content -->
-    <span th:text="'Hello, ' + ${#authentication.name} + '!'"></span>
-    <a th:href="@{/logout}">Logout</a>
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <a class="navbar-brand" href="#">Admin Panel</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <!-- Add other nav links here if needed -->
+        </ul>
+        <span class="navbar-text mr-3" th:text="'Hello, ' + ${#authentication.name} + '!'"></span>
+        <a class="btn btn-outline-light my-2 my-sm-0" th:href="@{/logout}">Logout</a>
+    </div>
 </nav>
+
 <div class="container">
-    <h2>Admin Panel</h2>
+    <h2 class="my-4">Admin Panel</h2>
     <form method="post">
-        <table class="table">
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th><input type="checkbox" id="selectAll"></th>
@@ -44,6 +72,10 @@
         </div>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     document.getElementById('selectAll').addEventListener('click', function(e) {
         var checkboxes = document.querySelectorAll('input[type="checkbox"][name="userId"]');
