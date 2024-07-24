@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Service
 public class UserService {
 
@@ -64,6 +65,11 @@ public class UserService {
     }
 
     public void updateUser(User user) {
+        userRepository.save(user);
+    }
+
+    public void updateLastLoginTime(User user) {
+        user.setLastLoginTime(LocalDateTime.now());
         userRepository.save(user);
     }
 }
