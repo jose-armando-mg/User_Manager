@@ -56,7 +56,9 @@ public class SecurityConfig {
                         })
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll());
+                .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout").invalidateHttpSession(true).
+                        deleteCookies("JSESSIONID").permitAll());
+
 
         return http.build();
     }
@@ -79,4 +81,5 @@ public class SecurityConfig {
     public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
+
 }

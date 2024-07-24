@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<nav>
+    <!-- Other navbar content -->
+    <span th:text="'Hello, ' + ${#authentication.name} + '!'"></span>
+    <a th:href="@{/logout}">Logout</a>
+</nav>
 <div class="container">
     <h2>Admin Panel</h2>
     <form method="post">
