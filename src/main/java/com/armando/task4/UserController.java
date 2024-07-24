@@ -45,7 +45,13 @@ public class UserController {
         }
     }
     @GetMapping("/login")
-    public String showLoginForm() {
+    public String showLoginForm(@RequestParam(value = "error", required = false) String error,
+                                @RequestParam(value = "blocked", required = false) String blocked,
+                                @RequestParam(value = "logout", required = false) String logout,
+                                Model model) {
+        if ("inactive".equals(error)) {
+            model.addAttribute("errorMessage", "Your account is blocked. Please contact support if you think this is an error");
+        }
         return "login";
     }
 
